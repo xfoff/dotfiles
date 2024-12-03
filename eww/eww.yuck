@@ -1,0 +1,316 @@
+(defpoll hour :interval "5s" "date '+%H'")
+(defpoll minute :interval "5s" "date '+%M'")
+(defpoll dayName :interval "1h" "date '+%a'")
+(defpoll day :interval "1h" "date '+%d'")
+(defpoll month :interval "1h" "date '+%b'")
+(defpoll volume :interval "10ms" `amixer get Master | grep -o '[0-9]*%' | head -n 1 | sed 's/%//'`)
+(defpoll micVolume :interval "10ms" `amixer get Capture | grep -o '[0-9]*%' | head -n 1 | sed 's/%//'`)
+(defpoll muted :interval "10ms" `./scripts/checkmic.sh`)
+(defpoll revealCalendar :interval "10ms" `./scripts/variables.sh get revealCalendar`)
+(defpoll revealSound :interval "10ms" `./scripts/variables.sh get revealSound`)
+(defpoll revealBrightness :interval "10ms" `./scripts/variables.sh get revealBrightness`)
+(defpoll revealDashboard :interval "10ms" `./scripts/variables.sh get revealDashboard`)
+(defpoll connection :interval "5s" `./scripts/connection.sh`)
+(defpoll workspace :interval "10ms" `hyprctl monitors -j | jq '.[] | select(.focused == true).activeWorkspace.id'`)
+(defpoll gpu :interval "1s" `nvidia-smi --query-gpu=utilization.gpu --format=csv,noheader,nounits`)
+
+(defwindow bar :monitor 1
+               :stacking "bg"
+               :exclusive true
+               :geometry (geometry :x "0px"
+                                   :y "0px"
+                                   :anchor "top center")
+  (main)
+)
+
+(defwindow calendar :monitor 1
+                 :stacking "overlay"
+                 :geometry (geometry :x "2.08%"
+                                     :y "5px"
+                                     :anchor "top right")
+  (calendarW)
+)
+
+(defwindow sound :monitor 1
+                 :stacking "overlay"
+                 :geometry (geometry :x "12.7%"
+                                     :y "5px"
+                                     :anchor "top right")
+  (soundW)
+)
+
+(defwindow dashboard :monitor 1
+                     :stacking "overlay"
+                     :geometry (geometry :x "3px"
+                                         :y "5px"
+                                         :anchor "top left")
+  (dashboardW)
+)
+
+(defwidget main []
+  (box :class "wrapper"
+       :width 1920
+    (box :space-evenly false
+         :halign "start"
+      ;button for dashboard or whatever you call that, my sanity is low when making this
+      (eventbox :cursor "pointer"
+        (button :class "container spacer"
+                :onclick "./scripts/variables.sh set revealDashboard ${!revealDashboard}"
+                :timeout "50ms"
+          (image :path "./images/logo.svg"
+                 :image-width 17)
+        )
+      )
+
+      ;workspaces
+      (box :class "container"
+           :space-evenly false
+        (eventbox :cursor "pointer"
+          (button :class "workspace ${workspace == 1 ? "selected" : ""} ${workspace - 1 == 1 || workspace + 1 == 1 ? "near" : ""} spacer"
+                  :onclick "hyprctl dispatch workspace 1"
+                  :valign "center")
+        )
+        (eventbox :cursor "pointer"
+          (button :class "workspace ${workspace == 2 ? "selected" : ""} ${workspace - 1 == 2 || workspace + 1 == 2 ? "near" : ""} spacer"
+                  :onclick "hyprctl dispatch workspace 2"
+                  :valign "center")
+        )
+        (eventbox :cursor "pointer"
+          (button :class "workspace ${workspace == 3 ? "selected" : ""} ${workspace - 1 == 3 || workspace + 1 == 3 ? "near" : ""} spacer"
+                  :onclick "hyprctl dispatch workspace 3"
+                  :valign "center")
+        )
+        (eventbox :cursor "pointer"
+          (button :class "workspace ${workspace == 4 ? "selected" : ""} ${workspace - 1 == 4 || workspace + 1 == 4 ? "near" : ""} spacer"
+                  :onclick "hyprctl dispatch workspace 4"
+                  :valign "center")
+        )
+        (eventbox :cursor "pointer"
+          (button :class "workspace ${workspace == 5 ? "selected" : ""} ${workspace - 1 == 5 || workspace + 1 == 5 ? "near" : ""} spacer"
+                  :onclick "hyprctl dispatch workspace 5"
+                  :valign "center")
+        )
+        (eventbox :cursor "pointer"
+          (button :class "workspace ${workspace == 6 ? "selected" : ""} ${workspace - 1 == 6 || workspace + 1 == 6 ? "near" : ""} spacer"
+                  :onclick "hyprctl dispatch workspace 6"
+                  :valign "center")
+        )
+        (eventbox :cursor "pointer"
+          (button :class "workspace ${workspace == 7 ? "selected" : ""} ${workspace - 1 == 7 || workspace + 1 == 7 ? "near" : ""} spacer"
+                  :onclick "hyprctl dispatch workspace 7"
+                  :valign "center")
+        )
+        (eventbox :cursor "pointer"
+          (button :class "workspace ${workspace == 8 ? "selected" : ""} ${workspace - 1 == 8 || workspace + 1 == 8 ? "near" : ""} spacer"
+                  :onclick "hyprctl dispatch workspace 8"
+                  :valign "center")
+        )
+        (eventbox :cursor "pointer"
+          (button :class "workspace ${workspace == 9 ? "selected" : ""} ${workspace - 1 == 9 || workspace + 1 == 9 ? "near" : ""} spacer"
+                  :onclick "hyprctl dispatch workspace 9"
+                  :valign "center")
+        )
+        (eventbox :cursor "pointer"
+          (button :class "workspace ${workspace == 10 ? "selected" : ""} ${workspace - 1 == 10 || workspace + 1 == 10 ? "near" : ""}"
+                  :onclick "hyprctl dispatch workspace 10"
+                  :valign "center")
+        )
+      )
+    )
+    (box :space-evenly false
+         :halign "end"
+      ;sound
+      (eventbox :cursor "pointer"
+        (button :onclick "./scripts/variables.sh set revealSound ${!revealSound}"
+                :timeout "50ms"
+          (box :class "container spacer"
+               :space-evenly "false"
+            (image :path "./images/${volume > 66 ? "sound_full.svg" : (volume > 33 ? "sound_mid.svg" : (volume > 0 ? "sound_low.svg" : "nosound.svg"))}"
+                   :image-width 17
+                   :class "spacer")
+            (label :text "${volume}%"
+                   :class "volumeLabel")
+          )
+        )
+      )
+
+      ;connection
+      (eventbox :cursor "pointer"
+        (box :class "container spacer"
+             :space-evenly false
+          (image :path "./images/${connection != "wired" ? "wired.svg" : "connection.svg"}"
+                 :image-width 14
+                 :class "spacer")
+          (label :text "wired"
+                 :class "connectionLabel")
+        )
+      )
+
+      ;date and time
+      (box  :class "container spacer"
+            :space-evenly false
+            :halign "center"
+        (eventbox :cursor "pointer"
+          (button :onclick "./scripts/variables.sh set revealCalendar ${!revealCalendar}"
+                  :timeout "50ms"
+            (box :space-evenly false
+              (image :path "./images/calendar.svg"
+                     :image-width 12
+                     :class "spacer")
+              (label :text "${dayName} ${month} ${day}  "
+                     :class "spacer calendarLabel")
+            )
+          )
+        )
+        (image :path "./images/clock.svg"
+               :image-width 12
+               :class "spacer")
+        (label :text "${hour} : ${minute}"
+               :class "calendarLabel")
+      )
+
+      (eventbox :cursor "pointer"
+        (button :onclick "./scripts/mute.sh"
+                :class "container"
+          (image :path "./images/${muted ? "nomic.svg" : "mic.svg"}"
+                 :image-width 14)
+        )
+      )
+    )
+  )
+)
+
+(defwidget calendarW []
+  (revealer :transition "slidedown"
+            :reveal {revealCalendar}
+            :duration "70ms"
+    (calendar :class "calendar" :style "border: ${revealCalendar ? "1px solid #58adad" : "none"}")
+  )
+)
+
+(defwidget soundW []
+  (revealer :transition "slidedown"
+            :reveal {revealSound}
+            :duration "70ms"
+    (box :orientation "v"
+         :class "soundBox"
+         :style "border: ${revealSound ? "1px solid #5eb78f" : "none"}"
+      (box :space-evenly false
+        (image :path "./images/sound_full.svg"
+               :image-width 17
+               :style "margin-right: 10px")
+        (scale  :class "volbar"
+                :value volume
+                :orientation "h"
+                :max 101
+                :min 0
+                :onchange "amixer sset Master {}%" )
+      )
+      (box :space-evenly false
+           :style "margin-top: 5px"
+        (image :path "./images/mic2.svg"
+               :image-width 17
+               :style "margin-right: 10px;")
+        (scale  :class "volbar"
+                :value micVolume
+                :orientation "h"
+                :max 101
+                :min 0
+                :onchange "amixer set Capture {}%" )
+      )
+    )
+  )
+)
+
+(defwidget dashboardW []
+  (revealer :transition "slidedown"
+            :reveal {revealDashboard}
+            :duration "70ms"
+    (box :class "dashboardBox"
+         :orientation "vertical"
+         :space-evenly false
+         :style "border: ${revealDashboard ? "1px solid #7ebae4" : "none"}"
+      (box :class "dashContainer"
+           :space-evenly false
+           :style "margin-bottom: 7px"
+        (eventbox :cursor "pointer"
+          (button :onclick "poweroff"
+                  :class "dashButton power"
+            (image :path "./images/power.svg"
+                   :image-width 16)
+          )
+        )
+        (eventbox :cursor "pointer"
+          (button :onclick "reboot"
+                  :class "dashButton reboot"
+            (image :path "./images/reboot.svg"
+                   :image-width 16)
+          )
+        )
+        (eventbox :cursor "pointer"
+          (button :onclick "logout"
+                  :class "dashButton logout"
+            (image :path "./images/logout.svg"
+                   :image-width 16)
+          )
+        )
+        (eventbox :cursor "pointer"
+          (button :onclick "suspend"
+                  :class "dashButton suspend"
+            (image :path "./images/suspend.svg"
+                   :image-width 16)
+          )
+        )
+      )
+
+      (box :class "dashContainer"
+           :orientation "vertical"
+        (box :space-evenly false
+             :style "margin-bottom: 4px"
+          (image :path "./images/cpu.svg"
+                 :image-width 25
+                 :class "spacer")
+          (scale :orientation "horizontal"
+                 :class "cpu"
+                 :min 0
+                 :max 100
+                 :value {round(EWW_CPU.avg, 0)}
+                 :active false)
+        )
+        (box :space-evenly false
+          (image :path "./images/gpu.svg"
+                 :image-width 25
+                 :class "spacer")
+          (scale :orientation "horizontal"
+                 :class "gpu"
+                 :min 0
+                 :max 100
+                 :value gpu
+                 :active false)
+        )
+        (box :space-evenly false
+          (image :path "./images/ram.svg"
+                 :image-width 25
+                 :class "spacer")
+          (scale :orientation "horizontal"
+                 :class "ram"
+                 :min 0
+                 :max 100
+                 :value {round(EWW_RAM.used_mem / EWW_RAM.total_mem * 100, 0)}
+                 :active false)
+        )
+        (box :space-evenly false
+          (image :path "./images/disk.svg"
+                 :image-width 20
+                 :style "margin-right: 10px")
+          (scale :orientation "horizontal"
+                 :class "disk"
+                 :min 0
+                 :max 100
+                 :value {round(EWW_DISK['/']['used_perc'], 0)}
+                 :active false)
+        )
+      )
+    )
+  )
+)

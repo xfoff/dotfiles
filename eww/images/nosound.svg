@@ -1,0 +1,12 @@
+<svg version="1.2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 225 149" width="32" height="21">
+	<title>image</title>
+	<defs>
+		<image  width="138" height="149" id="img1" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIoAAACVCAMAAACw2ZIYAAAAAXNSR0IB2cksfwAAAEtQTFRF////9vb2wcHB////2NjYAAAA7OzsysrK7+/vnp6e0dHR5ubmsLCw+fn539/fvb29pqamtbW1////////////////////////q6urx2nhSQAAABl0Uk5TAAAA/wAAAAAAAAAAAAAAAAAA+dAmsR9gAE0OKGEAAALFSURBVHic7ZxrU+owEIa3iHJTqn7y//+9M6PjBQWFw5lypDe25LZJ3tF9PpU2MM+0JU2T3S0oDUVRtD5sm+3LZm8Skatdb8d4k0flROSgsM6gMvtkd39fpYQq883Qkcl7UpXp17mDq4Qq1x9nD89fU6mM96YWuzQqN+/mNouXFCrlm02rXXyVxdqu3eU6ssrNlu9KTpm9xVWZbM1tjuxiqrDdfBaV21en5oum5xFWMXclPfYXcVSKkfNXZs0jSlLl7sX9O2VzPeVUnK9NT2UppnJhbsJyvKZlIaQy8v6do8qdjIptN39OReZeGRgx2iGpMjxitEJOxa2bZxBTefgTaCKl4teVdBFR8ejmGSRU7EaMRsJVlisREQGV+2dTi9LYQkTFZcRoIkgluCvpYFJZbmZu48I4KsWtxwgohkrgE8WdIZXkIkMqMt2nI6xKhlNCvIrju5QUjIrvMDmUU5VcJqcqQcPTIPoqQg98H0b1HOZBJeTlQVgl241CfRWf1+44KjazmolUMvVtjIrvSbEdMTqoSI4OPWir5Pz7UEcl703bUckzNGhoqYS/gIdRq0yLzLdK+6yoSo2qcKgKh6pwqAqHqnCoCoeqcKgKh6pwqAqHqnCoCoeqcKgKh6pwqAqHqnAgTgvOcVTGOPO2ULPZQHP8QCsfSOtBQKtkQGuHSCuqQOvMSKvveWMS6q38kRr11nf8ijkmMhbIUT1IsU5IEWBIcXFI0YIEFENZARNZetiDEm/7H5AoZCOyT6yfErFeARPHT0jZDQSU80FImTAElB9UAZM1RUi5ZASUYVcBk3dISNmYJJGjKphEHJq5i5TP/DOzvAkp952AKgJUwNRJIKTqEQRUU4NcKo0sn35P/ZUKmKo0ZDcHO12hVDAqH2HqOlV/+19Y7YqAaoBVwFRGI6R6cZzM/u9xK7UKdWsLTlpdTqPyD26nyJziTiwDAAAAAElFTkSuQmCC"/>
+	</defs>
+	<style>
+		.s0 { fill: #ffffff } 
+	</style>
+	<use id="Background" href="#img1" x="0" y="0"/>
+	<path id="Shape 1" class="s0" d="m136.6 19.1l4.2-2.8 76 113.8-4.2 2.7z"/>
+	<path id="Shape 2" class="s0" d="m212.5 16.1l4.1 2.8-76 113.9-4.1-2.7z"/>
+</svg>

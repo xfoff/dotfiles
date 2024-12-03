@@ -1,0 +1,178 @@
+*{
+    all: unset;
+    font-size: 13px;
+}
+
+.wrapper {
+  background-color: rgba(29, 32, 33, 0.95);
+  padding: 3px
+}
+
+.container {
+    background-color: rgb(60, 63, 64);
+    border-radius: 15px;
+    color: white;
+    padding: 4px 8px;
+}
+
+.clock {
+  margin-top: 1px;
+  margin-right: 4px;
+}
+
+.spacer {
+  margin-right: 5px;
+}
+
+.calendar {
+  background-color: rgba(29, 32, 33, 0.95);
+  border-radius: 5px;
+  font-size: 11px;
+  color: #58adad;
+}
+
+.calendarLabel {
+  color: #58adad;
+}
+
+.volumeLabel {
+  color: #5eb78f;
+}
+
+.soundLabel {
+  color: #5eb78f;
+  margin-bottom: 6px;
+}
+
+.connectionLabel {
+  color: #f368f3;
+}
+
+.volbar trough {
+  all: unset;
+  background-color: white;
+  border-radius: 5px;
+  min-height: 11px;
+  min-width: 120px;
+  margin: .3rem 0 .3rem 0;
+}
+
+.volbar trough highlight {
+  background-color: #5eb78f;
+  border-radius: 4px;
+}
+
+.soundBox {
+  background-color: rgba(29, 32, 33, 0.95);
+  padding: 15px;
+  border-radius: 7px;
+}
+
+.workspace {
+  background-color: #fee8bd;
+  border-radius: 5px;
+  padding: 5px;
+  transition: padding 0.1s;
+}
+
+.selected {
+  padding: 5px 10px;
+  background-color: #47c6d7;
+}
+
+.near {
+  background-color: #a2d7ca;
+}
+
+.dashboardBox {
+  background-color: rgba(29, 32, 33, 0.95);
+  border-radius: 7px;
+  padding: 10px;
+}
+
+.dashButton {
+  padding: 6px 10px;
+  border-radius: 7px;
+}
+
+.dashContainer {
+  background-color: rgb(60, 63, 64);
+  border-radius: 7px;
+  color: white;
+  padding: 7px;
+}
+
+.power {
+  background-color: #f08aa8;
+  margin-right: 7px;
+}
+
+.reboot {
+  background-color: #fbb188;
+  margin-right: 7px;
+}
+
+.logout {
+  background-color: #8ee0d2;
+  margin-right: 7px;
+}
+
+.suspend {
+  background-color: #1c7da2;
+}
+
+.cpu trough {
+  all: unset;
+  background-color: #53585a;
+  border-radius: 5px;
+  min-height: 11px;
+  min-width: 135px;
+  margin: .3rem 0 .3rem 0;
+}
+
+.cpu trough highlight {
+  background-color: #f368f3;
+  border-radius: 4px;
+}
+
+.gpu trough {
+  all: unset;
+  background-color: #53585a;
+  border-radius: 5px;
+  min-height: 11px;
+  min-width: 135px;
+  margin: .3rem 0 .3rem 0;
+}
+
+.gpu trough highlight {
+  background-color: #5eb68c;
+  border-radius: 4px;
+}
+
+.ram trough {
+  all: unset;
+  background-color: #53585a;
+  border-radius: 5px;
+  min-height: 11px;
+  min-width: 135px;
+  margin: .3rem 0 .3rem 0;
+}
+
+.ram trough highlight {
+  background-color: #fee8bd;
+  border-radius: 4px;
+}
+
+.disk trough {
+  all: unset;
+  background-color: #53585a;
+  border-radius: 5px;
+  min-height: 11px;
+  min-width: 135px;
+  margin: .3rem 0 .3rem 0;
+}
+
+.disk trough highlight {
+  background-color: #a673d5;
+  border-radius: 4px;
+}
